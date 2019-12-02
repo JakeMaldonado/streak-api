@@ -26,12 +26,14 @@ class UsersController {
  
   getAllUsers = (request: express.Request, response: express.Response) => {
     response.send(this.users);
+    console.log('Sent all users');
   }
  
   createUser = (request: express.Request, response: express.Response) => {
     const user: User = request.body;
     this.users.push(user);
     response.send(user);
+    console.log('Created a user');
   }
 }
  
