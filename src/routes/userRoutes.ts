@@ -1,4 +1,6 @@
 import express from 'express';
+import { Route } from "./Route";
+
 const router = express.Router();
 
 export default router.route('/user/:user_id')
