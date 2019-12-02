@@ -1,9 +1,13 @@
-import express from 'express';
 import mongoose from "mongoose";
+import express from 'express';
 
-import { MONGODB_URI, SESSION_SECRET } from ".env";
+import streakRoutes from './routes/streakRoutes';
+import userRoutes from './routes/userRoutes';
 
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true } ).then(
+const port = process.env || 3000;
+const connectionURL = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017";
+
+mongoose.connect(connectionURL, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true } ).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
   console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
@@ -12,13 +16,15 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useCreateIndex: true, useUni
 
 
 const app = express();
-const port = 3000;
+
+app.use('/streak', streakRoutes);
+app.use('/user', userRoutes);
 
 app.get('/', (req, res) => {
   res.send('The sedulous hyena ate the antelope!');
 });
 
-app.listen(port, err => {
+app.listen(port, (err?: string) => {
   if (err) {
     return console.error(err);
   }
