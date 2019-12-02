@@ -21,15 +21,15 @@ class StreaksController {
   }
  
   public intializeRoutes() {
-    this.router.get(this.path, this.getAllPosts);
-    this.router.post(this.path, this.createAPost);
+    this.router.get(this.path, this.getAllUsers);
+    this.router.post(this.path, this.createStreak);
   }
  
-  getAllPosts = (request: express.Request, response: express.Response) => {
+  getAllUsers = (request: express.Request, response: express.Response) => {
     response.send(this.streaks);
   }
  
-  createAPost = (request: express.Request, response: express.Response) => {
+  createStreak = (request: express.Request, response: express.Response) => {
     const streak: Streak = request.body;
     this.streaks.push(streak);
     response.send(streak);
