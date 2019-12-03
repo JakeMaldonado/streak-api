@@ -8,11 +8,11 @@ export default class NewStreak extends Component {
     value: 1,
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
     console.log('form submitted')
 
-    this.postSubmit({
+    return await this.postSubmit({
       userId: '1',
       title: e.target.title.value,
       description: e.target.description.value,
@@ -22,7 +22,6 @@ export default class NewStreak extends Component {
   };
 
   postSubmit = async (data) => {
-    console.log('posting')
     const rawResponse = await fetch('http://localhost:3000/streaks', {
       method: 'POST',
       headers: {
@@ -31,9 +30,8 @@ export default class NewStreak extends Component {
       },
       body: JSON.stringify(data)
     });
-    const content = await rawResponse.json();
-  
-    console.log(content);
+
+    return await rawResponse.json();
   }
 
   onChange = e => {

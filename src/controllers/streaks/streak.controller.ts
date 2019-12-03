@@ -26,15 +26,16 @@ class StreaksController {
   }
  
   getAllUsers = (request: express.Request, response: express.Response) => {
-    console.log('Sent all streaks')
     response.send(this.streaks);
+    console.log('Sent all streaks')
   }
  
   createStreak = (request: express.Request, response: express.Response) => {
-    console.log('Created streak!')
+    console.log(request.body)
     const streak: Streak = request.body;
     this.streaks.push(streak);
     response.send(streak);
+    console.log('Created streak!')
   }
 }
  
