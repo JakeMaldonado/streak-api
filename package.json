@@ -17,6 +17,7 @@
     "typescript": "^3.7.2"
   },
   "dependencies": {
+    "@types/bcrypt-nodejs": "0.0.30",
     "@types/dotenv": "^8.2.0",
     "@types/mongoose": "^5.5.32",
     "bcrypt-nodejs": "0.0.3",
