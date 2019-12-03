@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { DatePicker, Radio, Typography, Input, Button, Form } from 'antd';
+import { DatePicker, Radio, Typography, Input, Button } from 'antd';
 
 const { Title, Text } = Typography;
 
@@ -10,13 +10,31 @@ export default class NewStreak extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        debugger
-        console.log('Received values of form: ', values);
-      }
-    });
+    console.log('form submitted')
+
+    this.postSubmit({
+      userId: '1',
+      title: e.target.title.value,
+      description: e.target.description.value,
+      startDate: e.target.startDate.value,
+      countBy: this.state.value === 1 ? 'day' : 'week',
+    })
   };
+
+  postSubmit = async (data) => {
+    console.log('posting')
+    const rawResponse = await fetch('http://localhost:3000/streaks', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    const content = await rawResponse.json();
+  
+    console.log(content);
+  }
 
   onChange = e => {
     this.setState({
@@ -27,32 +45,27 @@ export default class NewStreak extends Component {
   render() {
     return (
       <div style={newStreakStylesContainer}>
-        <div style={newStreakStyles}>
-          <Form onSubmit={this.handleSubmit}>
-            <Title level={4}>Add new streak</Title>
-            <Text>Streak title:</Text>
-            <Form.Item>
-              <Input placeholder="Streak title"/>
-            </Form.Item>
-            <br/>
-            <Text>Start date:</Text>
-            <Form.Item>
-            </Form.Item>
-            <DatePicker placeholder="Select start date"/>
-            <br/>
-            <Text>Count streak by:</Text>
-            <Form.Item>
-              <Radio.Group onChange={this.onChange} value={this.state.value}>
-                <Radio value={1}>Day</Radio>
-                <Radio value={2}>Week</Radio>
-              </Radio.Group>
-            </Form.Item>
-            <br/>
-            <Button type="primary" block>
-              Add streak
-            </Button>
-          </Form>
-        </div>
+        <form onSubmit={ this.handleSubmit } style={newStreakStyles}>
+          <Title level={4}>Add new streak</Title>
+          <Text>Streak title:</Text>
+          <Input name='title' placeholder="Streak title"/>
+          <br />
+          <Text>Streak description::</Text>
+          <Input name='description' placeholder="Streak title"/>
+          <br />
+          <Text>Start date:</Text>
+          <DatePicker name='startDate' placeholder="Select start date"/>
+          <br />
+          <Text>Count streak by:</Text>
+          <Radio.Group onChange={this.onChange} value={this.state.value}>
+            <Radio value={1}>Day</Radio>
+            <Radio value={2}>Week</Radio>
+          </Radio.Group>
+          <br />
+          <Button htmlType="submit" type="primary" block>
+            Add streak
+          </Button>
+        </form>
       </div>
     );
   }

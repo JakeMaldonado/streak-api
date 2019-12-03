@@ -12,8 +12,8 @@ class App {
     this.port = port;
     this.dirEnv = 'client/build';
  
-    this.initializeMiddlewares();
     this.initializeControllers(controllers);
+    this.initializeMiddlewares();
   }
  
   private initializeMiddlewares() {
