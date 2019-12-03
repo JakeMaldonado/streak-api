@@ -1,13 +1,16 @@
 import express from 'express';
+import path from 'path';
 import * as bodyParser from 'body-parser';
  
 class App {
   public app: express.Application;
   public port: number;
+  private dirEnv: string;
  
   constructor(controllers, port) {
     this.app = express();
     this.port = port;
+    this.dirEnv = 'client/build';
  
     this.initializeMiddlewares();
     this.initializeControllers(controllers);
@@ -15,6 +18,12 @@ class App {
  
   private initializeMiddlewares() {
     this.app.use(bodyParser.json());
+
+    this.app.use(express.static(path.join(__dirname, this.dirEnv)));
+
+    this.app.get('*', (req, res) =>{
+      res.sendFile(path.join(__dirname + '/' + this.dirEnv + '/index.html'));
+    });
   }
  
   private initializeControllers(controllers) {
