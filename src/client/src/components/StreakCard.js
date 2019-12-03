@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Statistic, Typography } from 'antd'
+import moment from 'moment'
 
 const { Text } = Typography;
 
@@ -24,6 +25,9 @@ export default class StreakCard extends Component {
       <Card title={ this.state.title } style={{ width: 300 }}>
         <Statistic title={this.statsTitle()} value={ this.streakTime() } />
         <Text>{ this.state.description }</Text>
+        <br/>
+        <br/>
+        <Text>Streak started on { moment(this.state.startTime).format('DD-MM-YYYY') }</Text>
       </Card>
     )
   }
