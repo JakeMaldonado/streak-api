@@ -1,8 +1,6 @@
 import React from 'react';
 import { Menu, Icon } from 'antd';
 
-const { SubMenu } = Menu;
-
 export default class Navigation extends React.Component {
   state = {
     current: 'mail',
@@ -22,13 +20,13 @@ export default class Navigation extends React.Component {
           <Icon type="mail" />
           Navigation One
         </Menu.Item>
-        <Menu.Item key="app" disabled>
+        <Menu.Item key="app">
           <Icon type="appstore" />
           Navigation Two
         </Menu.Item>
-        <Menu.Item key="app" disabled>
+        <Menu.Item key="app2">
           <Icon type="appstore" />
-          Navigation Two
+          Navigation Three
         </Menu.Item>
       </Menu>
     );
