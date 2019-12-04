@@ -48,7 +48,7 @@ export default class NewStreak extends Component {
           <Text>Streak title:</Text>
           <Input name='title' placeholder="Streak title"/>
           <br />
-          <Text>Streak description::</Text>
+          <Text>Streak description:</Text>
           <Input name='description' placeholder="Streak title"/>
           <br />
           <Text>Start date:</Text>
@@ -80,7 +80,8 @@ const newStreakStyles = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  maxWidth: '300px',
-  height: '200px'
+  maxWidth: '400px',
+  width: '75%',
+  height: '450px'
 }
 

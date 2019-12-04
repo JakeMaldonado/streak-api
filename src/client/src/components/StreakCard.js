@@ -22,7 +22,7 @@ export default class StreakCard extends Component {
 
   render() {
     return (
-      <Card title={ this.state.title } style={{ width: 300 }}>
+      <Card title={ this.state.title } style={{ width: 300, marginBottom: '50px' }}>
         <Statistic title={ this.statsTitle() } value={ this.streakTime() } />
         <Text>{ this.state.description }</Text>
         <br/>
