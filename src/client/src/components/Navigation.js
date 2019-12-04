@@ -16,17 +16,17 @@ export default class Navigation extends React.Component {
   render() {
     return (
       <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
-        <Menu.Item key="mail">
-          <Icon type="mail" />
-          Navigation One
+        <Menu.Item key="streaks">
+          <Icon type="fire" theme="twoTone"/>
+          Streaks
         </Menu.Item>
-        <Menu.Item key="app">
-          <Icon type="appstore" />
-          Navigation Two
+        <Menu.Item key="help">
+          <Icon type="customer-service" theme="twoTone" />
+          Help
         </Menu.Item>
-        <Menu.Item key="app2">
-          <Icon type="appstore" />
-          Navigation Three
+        <Menu.Item key="settings">
+          <Icon type="tool" theme="twoTone"/>
+          Settings
         </Menu.Item>
       </Menu>
     );
