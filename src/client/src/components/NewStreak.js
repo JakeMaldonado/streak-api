@@ -49,7 +49,7 @@ export default class NewStreak extends Component {
           <Input name='title' placeholder="Streak title"/>
           <br />
           <Text>Streak description:</Text>
-          <Input name='description' placeholder="Streak title"/>
+          <Input name='description' placeholder="Streak description"/>
           <br />
           <Text>Start date:</Text>
           <DatePicker name='startDate' placeholder="Select start date"/>

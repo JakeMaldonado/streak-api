@@ -1,41 +1,47 @@
 import * as express from 'express';
 import Streak from './streak.interface';
+import StreakModel from '../../models/streak'
 
 class StreaksController {
   public path = '/streaks';
   public router = express.Router();
- 
-  private streaks: Streak[] = [
-    {
-      userId: 'sad31f1fqs',
-      streakId: 'bw1323f231dsaA32',
-      title: "Streak!",
-      description: "This is a sample streak",
-      startDate: new Date(),
-      countBy: 'day',
-    }
-  ];
  
   constructor() {
     this.intializeRoutes();
   }
  
   public intializeRoutes() {
-    this.router.get(this.path, this.getAllUsers);
+    this.router.get(this.path, this.getAllStreaks);
     this.router.post(this.path, this.createStreak);
   }
  
-  getAllUsers = (request: express.Request, response: express.Response) => {
-    response.send(this.streaks);
+  getAllStreaks = async (request: express.Request, response: express.Response) => {
+    const userId = request.body.userId;
+    const userStreaks = StreakModel.find({ userId });
+
+    response.send(userStreaks);
+
     console.log('Sent all streaks')
   }
  
-  createStreak = (request: express.Request, response: express.Response) => {
-    console.log(request.body)
-    const streak: Streak = request.body;
-    this.streaks.push(streak);
-    response.send(streak);
-    console.log('Created streak!')
+  async createStreak(request: express.Request, response: express.Response, next: express.NextFunction) {
+    const { userId, title, description, startDate, countBy } = request.body;
+    const streak = new StreakModel({
+      userId,
+      title,
+      description,
+      startDate,
+      countBy,
+      streakId: '1',
+    });
+
+    try {
+      await streak.save();
+      return response.send('success!');
+
+    } catch (error) {
+      return next(error);
+    }
   }
 }
  

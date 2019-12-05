@@ -1,7 +1,8 @@
-import express from 'express';
-import path from 'path';
 import * as bodyParser from 'body-parser';
 import mongoose from "mongoose";
+import express from 'express';
+import path from 'path';
+
 
 class App {
   public app: express.Application;
