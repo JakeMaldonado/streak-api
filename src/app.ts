@@ -1,16 +1,29 @@
 import express from 'express';
 import path from 'path';
 import * as bodyParser from 'body-parser';
+
+import * as mongoose from "mongoose";
+
+mongoose.connect(uri, (err: any) => {
+  if (err) {
+    console.log(err.message);
+  } else {
+    console.log("Successfully Connected Mongo!");
+  }
+});
  
 class App {
   public app: express.Application;
   public port: number;
   private dirEnv: string;
+  private uri: string = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/local";
 
   constructor(controllers, port) {
     this.app = express();
     this.port = port;
     this.dirEnv = 'client/build';
+
+    this.intializeMongoDB();
 
     this.initializeMiddlewares();
     this.initializeControllers(controllers);
@@ -26,6 +39,16 @@ class App {
 
     this.app.get('*', (req, res) =>{
       res.sendFile(path.join(__dirname + '/' + this.dirEnv + '/index.html'));
+    });
+  }
+
+  private intializeMongoDB() {
+    mongoose.connect(this.uri, (err: any) => {
+      if (err) {
+        console.log(err.message);
+      } else {
+        console.log("Successfully Connected Mongo!");
+      }
     });
   }
 

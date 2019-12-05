@@ -1,16 +1,21 @@
-import mongoose from "mongoose";
+import * as mongoose from "mongoose";
 
-const streakSchema = new mongoose.Schema({
-    facebook: String,
-    twitter: String,
-    google: String,
-    tokens: Array,
+export interface iStreak extends mongoose.Document {
+  userId: string;
+  streakId: string;
+  title: string;
+  description: string;
+  startDate: Date;
+  countBy: string;
+}
 
-    profile: {
-        name: String,
-        gender: String,
-        location: String,
-        website: String,
-        picture: String
-    }
-}, { timestamps: true });
+export const StreakSchema = new mongoose.Schema({
+  userId: {type: String, required: true},
+  streakId: {type: String, required: true},
+  title: {type: String, required: true},
+  description: {type: String, required: true},
+  startDate: {type: Date, required: true},
+  countBy: {type: String, required: true},
+});
+
+export default mongoose.model<iStreak>("Streak", StreakSchema);
