@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch >
-          <Route path='/streaks' exact render={() => <NewStreakPage />} />
+          <Route path='/' exact render={() => <NewStreakPage />} />
           <Route path='/login' exact render={() => <Login />} />
         </Switch>
       </Router>
