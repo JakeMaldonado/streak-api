@@ -1,17 +1,8 @@
 import express from 'express';
 import path from 'path';
 import * as bodyParser from 'body-parser';
+import mongoose from "mongoose";
 
-import * as mongoose from "mongoose";
-
-mongoose.connect(uri, (err: any) => {
-  if (err) {
-    console.log(err.message);
-  } else {
-    console.log("Successfully Connected Mongo!");
-  }
-});
- 
 class App {
   public app: express.Application;
   public port: number;
