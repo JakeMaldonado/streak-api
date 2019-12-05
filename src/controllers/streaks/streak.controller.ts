@@ -1,5 +1,4 @@
 import * as express from 'express';
-import Streak from './streak.interface';
 import StreakModel from '../../models/streak'
 
 class StreaksController {
@@ -16,6 +15,8 @@ class StreaksController {
   }
  
   getAllStreaks = async (request: express.Request, response: express.Response) => {
+    console.log('Requested all streaks')
+    console.log(request.body)
     const userId = request.body.userId;
     const userStreaks = StreakModel.find({ userId });
 
@@ -25,6 +26,8 @@ class StreaksController {
   }
  
   async createStreak(request: express.Request, response: express.Response, next: express.NextFunction) {
+    console.log('Creating streak');
+    console.log(request.body);
     const { userId, title, description, startDate, countBy } = request.body;
     const streak = new StreakModel({
       userId,
@@ -38,7 +41,6 @@ class StreaksController {
     try {
       await streak.save();
       return response.send('success!');
-
     } catch (error) {
       return next(error);
     }
