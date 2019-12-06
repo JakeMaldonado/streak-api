@@ -14,7 +14,7 @@ export default class NormalLoginForm extends React.Component {
   }
 
   postSubmit = async data => {
-    const rawResponse = await fetch('http://localhost:3000/login', {
+    const rawResponse = await fetch('http://localhost:3000/users', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
