@@ -11,8 +11,7 @@ class UsersController {
   }
  
   public intializeRoutes() {
-    this.router.get(this.path, this.getUser);
-    this.router.post(this.path, this.createUser);
+    this.router.post(this.path, this.getUser);
   }
  
   getUser = async (request: express.Request, response: express.Response) => {
@@ -34,6 +33,7 @@ class UsersController {
     const { username, password } = request.body;
 
     // TODO: Hash password!!
+    // for now i will add users to the DB manually
     const user = new UserModel({
       username,
       password,

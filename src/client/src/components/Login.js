@@ -28,7 +28,7 @@ export default class NormalLoginForm extends React.Component {
   render() {
     return (
       <div style={loginFormContainer}>
-        <form style={loginFormStyles}>
+        <form style={loginFormStyles} onSubmit={this.handleSubmit}>
           <Title level={4}>Login</Title>
           <Input
             name="username"
