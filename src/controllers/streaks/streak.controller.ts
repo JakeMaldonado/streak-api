@@ -2,7 +2,7 @@ import * as express from 'express';
 import StreakModel from '../../models/streak'
 
 class StreaksController {
-  public path = '/streaks';
+  public path = '/streaks/:id';
   public router = express.Router();
  
   constructor() {
@@ -16,9 +16,10 @@ class StreaksController {
  
   getAllStreaks = async (request: express.Request, response: express.Response) => {
     console.log('Requested all streaks')
-    console.log(request.body)
-    const userId = request.body.userId;
-    const userStreaks = StreakModel.find({ userId });
+    const userId = request.params.id;
+    console.log(userId)
+
+    const userStreaks = await StreakModel.find({ userId });
 
     response.send(userStreaks);
 
