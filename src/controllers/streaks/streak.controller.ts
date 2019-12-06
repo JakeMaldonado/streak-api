@@ -1,5 +1,5 @@
 import * as express from 'express';
-import StreakModel from '../../models/streak'
+import StreakModel from '../../models/streak';
 
 class StreaksController {
   public path = '/streaks/:id';
