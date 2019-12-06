@@ -21,7 +21,7 @@ export default class NewStreak extends Component {
     })
   };
 
-  postSubmit = async (data) => {
+  postSubmit = async data => {
     const rawResponse = await fetch(`http://localhost:3000/streaks/${this.props.userId}`, {
       method: 'POST',
       headers: {
