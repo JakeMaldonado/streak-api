@@ -13,7 +13,7 @@ export default class NewStreak extends Component {
     console.log('form submitted')
 
     return await this.postSubmit({
-      userId: '1',
+      userId: this.props.userId,
       title: e.target.title.value,
       description: e.target.description.value,
       startDate: e.target.startDate.value,
@@ -22,7 +22,7 @@ export default class NewStreak extends Component {
   };
 
   postSubmit = async (data) => {
-    const rawResponse = await fetch('http://localhost:3000/streaks', {
+    const rawResponse = await fetch(`http://localhost:3000/streaks/${this.props.userId}`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -30,8 +30,7 @@ export default class NewStreak extends Component {
       },
       body: JSON.stringify(data)
     });
-
-    return await rawResponse.json();
+    console.log(rawResponse)
   }
 
   onChange = e => {

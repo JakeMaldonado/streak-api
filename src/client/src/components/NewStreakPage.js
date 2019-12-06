@@ -9,7 +9,7 @@ export default class NewStreakPage extends Component {
     return (
       <div>
         <Navigation />
-        <NewStreak />
+        <NewStreak userId="1" />
         <Streaks userId="1" />
       </div>
     )
