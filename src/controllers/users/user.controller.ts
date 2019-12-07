@@ -3,6 +3,7 @@ import UserModel from '../../models/user';
 
 class UsersController {
   public path = '/users';
+  public newUserPath = '/new_user';
   public router = express.Router();
  
   constructor() {
@@ -11,6 +12,7 @@ class UsersController {
  
   public intializeRoutes() {
     this.router.post(this.path, this.getUser);
+    this.router.post(this.newUserPath, this.createUser);
   }
  
   getUser = async (request: express.Request, response: express.Response) => {
