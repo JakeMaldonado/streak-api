@@ -19,19 +19,21 @@ class UsersController {
   getUser = async (request: express.Request, response: express.Response) => {
     // TODO:  get by hashed PW
     console.log('Requested user')
-    const username = request.params.username;
-    const password = request.params.password;
+    const username = request.body.username;
+    const password = request.body.password;
+    console.log(request.body);
 
     const user = await UserModel.find({ username, password });
-    console.log(user)
+    console.log(user);
 
     if(user.length) {
-      response.send(user);
+      console.log('Sent user')
+      return response.send(user);
     }
 
-    response.status(404).send(user);
+    console.log('error getting user')
+    return response.status(404).send(user);
 
-    console.log('Sent user')
   }
  
   async createUser(request: express.Request, response: express.Response, next: express.NextFunction) {

@@ -11,8 +11,8 @@ export default class NewStreakPage extends Component {
       <div>
         { !this.props.userId && <Redirect to="/login" /> }
         <Navigation />
-        <NewStreak userId="1" />
-        <Streaks userId="1" />
+        <NewStreak userId={this.props.userId} />
+        <Streaks userId={this.props.userId} />
       </div>
     )
   }
