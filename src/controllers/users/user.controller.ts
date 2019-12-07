@@ -1,5 +1,4 @@
 import * as express from 'express';
-import User from './user.interface';
 import UserModel from '../../models/user';
 
 class UsersController {
@@ -21,8 +20,13 @@ class UsersController {
     const password = request.params.password;
 
     const user = await UserModel.find({ username, password });
+    console.log(user)
 
-    response.send(user);
+    if(user.length) {
+      response.send(user);
+    }
+
+    response.status(404).send(user);
 
     console.log('Sent user')
   }
