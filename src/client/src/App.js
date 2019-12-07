@@ -6,17 +6,29 @@ import Login from './components/Login'
 
 import 'antd/dist/antd.css'
 
-function App() {
-  return (
-    <div className="App">
-      <Router>
-        <Switch >
-          <Route path='/' exact render={() => <NewStreakPage />} />
-          <Route path='/login' exact render={() => <Login />} />
-        </Switch>
-      </Router>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    userId: null
+  }
+
+  updateUserId(userId) {
+    this.setState({
+      userId
+    })
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Router>
+          <Switch >
+            <Route path='/'exact render={() => <NewStreakPage  userId={this.state.userId} />} />
+            <Route path='/login' exact render={() => <Login updateUserId={this.updateUserId} />} />
+          </Switch>
+        </Router>
+      </div>
+    )
+  }
 }
 
 export default App;
