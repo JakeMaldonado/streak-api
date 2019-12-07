@@ -1,5 +1,6 @@
 import * as express from 'express';
 import UserModel from '../../models/user';
+import { v4 as uuid } from 'uuid';
 
 class UsersController {
   public path = '/users';
@@ -41,6 +42,7 @@ class UsersController {
     // TODO: Hash password!!
     // for now i will add users to the DB manually
     const user = new UserModel({
+      userId: uuid(),
       username,
       password,
     });
