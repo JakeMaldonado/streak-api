@@ -20,15 +20,14 @@ class UsersController {
  
   getUser = async (request: express.Request, response: express.Response) => {
     // TODO:  get by hashed PW
-    console.log('Requested user');
     const username = request.body.username;
     const password = request.body.password;
-    console.log(request.body);
 
-    const user = await UserModel.findOne({ username, password });
-    console.log(user);
+    console.log(`Requested user ${username}`);
 
-    if(user) {
+    const user = await UserModel.findOne({ username });
+
+    if(user && this.checkPasswordMatch(password, user.password)) {
       console.log('Sent user')
       return response.json(user);
     }
@@ -59,7 +58,7 @@ class UsersController {
     }
   }
   
-  hashPassword(password) {
+  hashPassword(password: string) {
     bcrypt.genSalt(this.saltRounds, function (err, salt) {
       if (err) {
         throw err;
@@ -73,6 +72,20 @@ class UsersController {
         });
       }
     });
+  }
+
+  checkPasswordMatch(password: string, hash: string) {
+    bcrypt.compare(password, hash, function(err, isMatch) {
+      if (err) {
+        throw err
+      } else if (!isMatch) {
+        console.log("Password doesn't match!")
+        return false;
+      } else {
+        console.log("Password matches!")
+        return true;
+      }
+    })
   }
 }
  
