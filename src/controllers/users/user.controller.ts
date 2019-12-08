@@ -18,36 +18,35 @@ class UsersController {
     this.router.post(this.newUserPath, this.createUser);
   }
  
-  getUser = async (request: express.Request, response: express.Response) => {
-    // TODO:  get by hashed PW
+  public getUser = async (request: express.Request, response: express.Response) => {
     const username = request.body.username;
     const password = request.body.password;
 
     console.log(`Requested user ${username}`);
 
     const user = await UserModel.findOne({ username });
+    console.log(await this.checkPasswordMatch(password, user.password));
 
-    if(user && this.checkPasswordMatch(password, user.password)) {
+    if(user) {
       console.log('Sent user')
       return response.json(user);
     }
 
     console.log('error getting user')
     return response.status(404).send('error');
-
   }
  
-  async createUser(request: express.Request, response: express.Response, next: express.NextFunction) {
+  public createUser = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
     console.log('Creating user');
     console.log(request.body);
     const { username, password } = request.body;
 
-    // TODO: Hash password!!
-    // for now i will add users to the DB manually
+    console.log(await this.hashPassword(password));
+
     const user = new UserModel({
       userId: uuid(),
       username,
-      password: this.hashPassword(password),
+      password: await this.hashPassword(password),
     });
 
     try {
@@ -58,8 +57,8 @@ class UsersController {
     }
   }
   
-  hashPassword(password: string) {
-    bcrypt.genSalt(this.saltRounds, function (err, salt) {
+  private  hashPassword = async (password: string) => {
+    return await bcrypt.genSalt(this.saltRounds, function (err, salt) {
       if (err) {
         throw err;
       } else {
@@ -74,18 +73,18 @@ class UsersController {
     });
   }
 
-  checkPasswordMatch(password: string, hash: string) {
-    bcrypt.compare(password, hash, function(err, isMatch) {
+  private checkPasswordMatch = async (password: string, hash: string) => {
+    return await bcrypt.compare(password, hash, function(err, isMatch) {
       if (err) {
         throw err
-      } else if (!isMatch) {
+      } else if (isMatch) {
         console.log("Password doesn't match!")
         return false;
       } else {
         console.log("Password matches!")
         return true;
       }
-    })
+    });
   }
 }
  
