@@ -2,12 +2,13 @@ import * as express from 'express';
 import UserModel from '../../models/user';
 import { v4 as uuid } from 'uuid';
 import crypto from 'crypto';
+import pbkdf2 from 'pbkdf2';
  
 class UsersController {
   public path = '/users';
   public newUserPath = '/new_user';
   public router = express.Router();
-  private iterations = 10000;
+  private iterations = 872791;
  
   constructor() {
     this.intializeRoutes();
@@ -20,14 +21,15 @@ class UsersController {
  
   public getUser = async (request: express.Request, response: express.Response) => {
     const username = request.body.username;
-    const password = request.body.password;
+    const passwordAttempt = request.body.password;
 
     console.log(`Requested user ${username}`);
 
     const user = await UserModel.findOne({ username });
-    console.log(await this.checkPasswordMatch(password, user.password));
 
-    if(user) {
+    const sendUser = user && await this.checkPasswordMatch(passwordAttempt, user.hash, user.salt, user.iterations);
+
+    if(sendUser) {
       console.log('Sent user')
       return response.json(user);
     }
@@ -61,18 +63,17 @@ class UsersController {
   
   private hashPassword = async (password) => {
     const salt = crypto.randomBytes(128).toString('base64');
-    const iterations = 10000;
-    const hash = crypto.pbkdf2(password, salt, iterations);
+    const hash = pbkdf2(password, salt, this.iterations);
 
     return {
       salt: salt,
       hash: hash,
-      iterations: iterations
+      iterations: this.iterations
     };
   }
 
   private checkPasswordMatch = async (savedHash, passwordAttempt, savedSalt, savedIterations) => {
-    return savedHash == crypto.pbkdf2(passwordAttempt, savedSalt, savedIterations);
+    return savedHash == pbkdf2(passwordAttempt, savedSalt, savedIterations);
   }
 }
  
