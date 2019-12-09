@@ -1,13 +1,13 @@
 import * as express from 'express';
 import UserModel from '../../models/user';
 import { v4 as uuid } from 'uuid';
-import bcrypt from 'bcrypt-nodejs';
+import crypto from 'crypto';
  
 class UsersController {
   public path = '/users';
   public newUserPath = '/new_user';
   public router = express.Router();
-  private saltRounds = 10;
+  private iterations = 10000;
  
   constructor() {
     this.intializeRoutes();
@@ -43,10 +43,12 @@ class UsersController {
 
     console.log(await this.hashPassword(password));
 
+    const hashObj = await this.hashPassword(password);
+
     const user = new UserModel({
       userId: uuid(),
       username,
-      password: await this.hashPassword(password),
+      ...hashObj
     });
 
     try {
@@ -57,34 +59,20 @@ class UsersController {
     }
   }
   
-  private  hashPassword = async (password: string) => {
-    return await bcrypt.genSalt(this.saltRounds, function (err, salt) {
-      if (err) {
-        throw err;
-      } else {
-        bcrypt.hash(password, salt, function(err, hash) {
-          if (err) {
-            throw err;
-          } else {
-            return hash;
-          }
-        });
-      }
-    });
+  private hashPassword = async (password) => {
+    const salt = crypto.randomBytes(128).toString('base64');
+    const iterations = 10000;
+    const hash = crypto.pbkdf2(password, salt, iterations);
+
+    return {
+      salt: salt,
+      hash: hash,
+      iterations: iterations
+    };
   }
 
-  private checkPasswordMatch = async (password: string, hash: string) => {
-    return await bcrypt.compare(password, hash, function(err, isMatch) {
-      if (err) {
-        throw err
-      } else if (isMatch) {
-        console.log("Password doesn't match!")
-        return false;
-      } else {
-        console.log("Password matches!")
-        return true;
-      }
-    });
+  private checkPasswordMatch = async (savedHash, passwordAttempt, savedSalt, savedIterations) => {
+    return savedHash == crypto.pbkdf2(passwordAttempt, savedSalt, savedIterations);
   }
 }
  
