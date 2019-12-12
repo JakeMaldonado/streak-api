@@ -22,7 +22,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Switch >
-          <Route path='/'exact render={(routeProps) => <NewStreakPage {...routeProps}  userId={this.state.userId} />} />
+          <Route path='/' exact render={(routeProps) => <NewStreakPage {...routeProps}  userId={this.state.userId} />} />
           <Route path='/login' exact render={(routeProps) => <Login {...routeProps} updateUserState={this.updateUserState} />} />
         </Switch>
       </div>

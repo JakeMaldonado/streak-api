@@ -28,7 +28,7 @@ export default class NormalLoginForm extends React.Component {
     console.log(responseObj)
 
     this.props.updateUserState(responseObj.username, responseObj.userId)
-    this.props.history.push('/streaks')
+    this.props.history.push('/')
   }
 
   render() {
