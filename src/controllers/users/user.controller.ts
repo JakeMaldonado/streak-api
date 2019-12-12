@@ -40,10 +40,8 @@ class UsersController {
  
   public createUser = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
     console.log('Creating user');
-    console.log(request.body);
+    console.log(request.body.username);
     const { username, password } = request.body;
-
-    console.log(await this.hashPassword(password));
 
     const hashObj = await this.hashPassword(password);
 
@@ -63,7 +61,7 @@ class UsersController {
   
   private hashPassword = async (password) => {
     const salt = crypto.randomBytes(128).toString('base64');
-    const hash = pbkdf2.pbkdf2Sync(password, salt, this.iterations);
+    const hash = pbkdf2.pbkdf2Sync(password, salt, this.iterations, 32, 'sha512');
 
     return {
       salt: salt,
@@ -73,7 +71,7 @@ class UsersController {
   }
 
   private checkPasswordMatch = async (savedHash, passwordAttempt, savedSalt, savedIterations) => {
-    return savedHash == pbkdf2.pbkdf2Sync(passwordAttempt, savedSalt, savedIterations);
+    return savedHash == pbkdf2.pbkdf2Sync(passwordAttempt, savedSalt, savedIterations,  32, 'sha512');
   }
 }
  

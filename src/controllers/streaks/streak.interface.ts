@@ -7,4 +7,4 @@ interface Streak {
   countBy: string;
 }
    
-  export default Streak;
+export default Streak;
