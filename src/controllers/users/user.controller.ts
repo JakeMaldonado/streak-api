@@ -34,8 +34,6 @@ class UsersController {
       return response.json(user);
     }
 
-    console.log(sendUser)
-
     console.log('error getting user')
     return response.status(404).send('error');
   }
