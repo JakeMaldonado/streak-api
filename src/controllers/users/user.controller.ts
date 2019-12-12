@@ -34,6 +34,8 @@ class UsersController {
       return response.json(user);
     }
 
+    console.log(sendUser)
+
     console.log('error getting user')
     return response.status(404).send('error');
   }
@@ -43,7 +45,7 @@ class UsersController {
     console.log(request.body.username);
     const { username, password } = request.body;
 
-    const hashObj = await this.hashPassword(password);
+    const hashObj = this.hashPassword(password);
 
     const user = new UserModel({
       userId: uuid(),
@@ -59,7 +61,7 @@ class UsersController {
     }
   }
   
-  private hashPassword = async (password) => {
+  private hashPassword = (password) => {
     const salt = crypto.randomBytes(128).toString('base64');
     const hash = pbkdf2.pbkdf2Sync(password, salt, this.iterations, 32, 'sha512');
 
