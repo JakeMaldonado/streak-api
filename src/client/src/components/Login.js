@@ -1,4 +1,5 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
 import { Icon, Input, Button, Typography } from 'antd'
 
 const { Title } = Typography;
@@ -25,7 +26,9 @@ export default class NormalLoginForm extends React.Component {
     
     const responseObj = await rawResponse.json()
     console.log(responseObj)
+
     this.props.updateUserState(responseObj.username, responseObj.userId)
+    this.props.history.push('/streaks')
   }
 
   render() {

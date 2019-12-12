@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Switch, Route, withRouter } from 'react-router-dom'
 import NewStreakPage from './components/NewStreakPage'
 import Login from './components/Login'
 
@@ -22,15 +21,13 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Router>
-          <Switch >
-            <Route path='/'exact render={() => <NewStreakPage  userId={this.state.userId} />} />
-            <Route path='/login' exact render={() => <Login updateUserState={this.updateUserState} />} />
-          </Switch>
-        </Router>
+        <Switch >
+          <Route path='/'exact render={(routeProps) => <NewStreakPage {...routeProps}  userId={this.state.userId} />} />
+          <Route path='/login' exact render={(routeProps) => <Login {...routeProps} updateUserState={this.updateUserState} />} />
+        </Switch>
       </div>
     )
   }
 }
 
-export default App;
+export default withRouter(App)
