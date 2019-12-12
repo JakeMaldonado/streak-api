@@ -22,7 +22,10 @@ export default class NormalLoginForm extends React.Component {
       },
       body: JSON.stringify(data)
     });
-    console.log(rawResponse)
+    
+    const responseObj = await rawResponse.json()
+    console.log(responseObj)
+    updateUserState(responseObj.username, responseObj.useId)
   }
 
   render() {

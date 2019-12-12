@@ -8,12 +8,14 @@ import 'antd/dist/antd.css'
 
 class App extends React.Component {
   state = {
-    userId: null
+    userId: null,
+    username: null
   }
 
-  updateUserId(userId) {
+  updateUserState(username, userId) {
     this.setState({
-      userId
+      userId,
+      username
     })
   }
 
@@ -23,7 +25,7 @@ class App extends React.Component {
         <Router>
           <Switch >
             <Route path='/'exact render={() => <NewStreakPage  userId={this.state.userId} />} />
-            <Route path='/login' exact render={() => <Login updateUserId={this.updateUserId} />} />
+            <Route path='/login' exact render={() => <Login updateUserState={this.updateUserState} />} />
           </Switch>
         </Router>
       </div>

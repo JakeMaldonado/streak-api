@@ -31,7 +31,10 @@ class UsersController {
 
     if(sendUser) {
       console.log('Sent user')
-      return response.json(user);
+      return response.json({
+        username: user.username,
+        userId: user.userId
+      });
     }
 
     console.log('error getting user')
