@@ -12,7 +12,7 @@ class App extends React.Component {
     username: null
   }
 
-  updateUserState(username, userId) {
+  updateUserState = (username, userId) => {
     this.setState({
       userId,
       username
