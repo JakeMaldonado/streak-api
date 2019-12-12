@@ -72,7 +72,9 @@ class UsersController {
     };
   }
 
-  private checkPasswordMatch = async (savedHash, passwordAttempt, savedSalt, savedIterations) => {
+  private checkPasswordMatch = async (passwordAttempt, savedHash, savedSalt, savedIterations) => {
+    console.log(savedHash)
+    console.log(pbkdf2.pbkdf2Sync(passwordAttempt, savedSalt, savedIterations,  32, 'sha512'))
     return savedHash == pbkdf2.pbkdf2Sync(passwordAttempt, savedSalt, savedIterations,  32, 'sha512');
   }
 }
