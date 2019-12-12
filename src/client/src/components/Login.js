@@ -25,7 +25,7 @@ export default class NormalLoginForm extends React.Component {
     
     const responseObj = await rawResponse.json()
     console.log(responseObj)
-    updateUserState(responseObj.username, responseObj.useId)
+    this.props.updateUserState(responseObj.username, responseObj.useId)
   }
 
   render() {
