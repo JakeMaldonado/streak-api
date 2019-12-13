@@ -24,7 +24,7 @@ export default class StreakCard extends Component {
         <Text>{ this.props.description }</Text>
         <br/>
         <br/>
-        <Text>Streak started on { moment(this.props.startTime).format('DD-MM-YYYY') }</Text>
+        <Text>Streak started on { moment(this.props.startDate).format('DD-MM-YYYY') }</Text>
       </Card>
     )
   }
