@@ -7,8 +7,8 @@ import 'antd/dist/antd.css'
 
 class App extends React.Component {
   state = {
-    userId: null,
-    username: null
+    userId: localStorage.getItem('userId'),
+    username: localStorage.getItem('username')
   }
 
   updateUserState = (username, userId) => {
