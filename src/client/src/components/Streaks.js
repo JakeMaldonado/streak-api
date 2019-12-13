@@ -23,8 +23,6 @@ export default class Streaks extends Component {
       }
     })
 
-    console.log(rawResponse)
-
     return await rawResponse.json()
   }
 
