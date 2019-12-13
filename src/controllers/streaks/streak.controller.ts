@@ -19,6 +19,8 @@ class StreaksController {
     const userId = request.params.id;
     console.log(userId)
 
+    // going to have to use a session key instead of user id to be secure
+    // TODO: make an auth middleware to check if user is relevant before these methods run
     const userStreaks = await StreakModel.find({ userId });
 
     response.send(userStreaks);
