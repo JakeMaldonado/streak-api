@@ -21,7 +21,7 @@ export default class Streaks extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
-    });
+    })
 
     console.log(rawResponse)
 

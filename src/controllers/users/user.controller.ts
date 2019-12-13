@@ -27,7 +27,7 @@ class UsersController {
 
     const user = await UserModel.findOne({ username });
 
-    const sendUser = user && await this.checkPasswordMatch(passwordAttempt, user.hash, user.salt, user.iterations);
+    const sendUser = user && this.checkPasswordMatch(passwordAttempt, user.hash, user.salt, user.iterations);
 
     if(sendUser) {
       console.log('Sent user')
@@ -73,7 +73,7 @@ class UsersController {
     };
   }
 
-  private checkPasswordMatch = async (passwordAttempt, savedHash, savedSalt, savedIterations) => {
+  private checkPasswordMatch = (passwordAttempt, savedHash, savedSalt, savedIterations) => {
     console.log(savedHash)
     console.log(pbkdf2.pbkdf2Sync(passwordAttempt, savedSalt, savedIterations,  32, 'sha512'))
     return savedHash == pbkdf2.pbkdf2Sync(passwordAttempt, savedSalt, savedIterations,  32, 'sha512');

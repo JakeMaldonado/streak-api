@@ -6,7 +6,11 @@ const { Text } = Typography;
 
 export default class StreakCard extends Component {
   streakTime = () => {
-    
+    const now = moment(new Date())
+    const duration = moment.duration(now.diff(this.props.startDate))
+    const divideBy = this.props.countBy === 'day' ? 24 : 168
+
+    return Math.floor(duration.asHours() / divideBy)
   }
 
   statsTitle = () => {
