@@ -43,7 +43,14 @@ class StreaksController {
 
     try {
       await streak.save();
-      return response.send('success!');
+      return response.send({
+        userId,
+        title,
+        description,
+        startDate,
+        countBy,
+        streakId: '1',
+      });
     } catch (error) {
       return next(error);
     }

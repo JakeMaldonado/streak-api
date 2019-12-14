@@ -1,5 +1,4 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
 import { Icon, Input, Button, Typography } from 'antd'
 
 const { Title } = Typography;
