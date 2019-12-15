@@ -2,16 +2,10 @@ import React, { Component } from 'react'
 import StreakCard from './StreakCard'
 
 export default class Streaks extends Component {
-  state = {
-    streaks: []
-  }
-
   async componentDidMount() {
     let streaks = await this.getStreaks()
 
-    return this.setState({
-      streaks: streaks
-    })
+    return this.propes.addStreaks(streaks)
   }
 
   getStreaks = async () => {
@@ -27,7 +21,7 @@ export default class Streaks extends Component {
   }
 
   renderSreaks = () => {
-    return this.state.streaks.map(streak => {
+    return this.props.streaks.map(streak => {
       return <StreakCard { ...streak } />
     })
   }

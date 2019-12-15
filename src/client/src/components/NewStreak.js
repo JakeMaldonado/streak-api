@@ -83,4 +83,3 @@ const newStreakStyles = {
   width: '75%',
   height: '450px'
 }
-
