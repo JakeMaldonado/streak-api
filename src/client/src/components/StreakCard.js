@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Statistic, Typography } from 'antd'
+import { Card, Statistic, Typography, Button } from 'antd'
 import moment from 'moment'
 
 const { Text } = Typography;
@@ -25,7 +25,19 @@ export default class StreakCard extends Component {
         <br/>
         <br/>
         <Text>Streak started on { moment(this.props.startDate).format('DD-MM-YYYY') }</Text>
+        <br/>
+        <Button style={buttonStyles} type="primary" block>
+          Edit Streak
+        </Button>
+        <Button style={buttonStyles} type="danger" block>
+          Delete Streak
+        </Button>
       </Card>
     )
   }
+}
+
+const buttonStyles = {
+  marginBottom: '0.5rem',
+  marginTop: '0.5rem'
 }
