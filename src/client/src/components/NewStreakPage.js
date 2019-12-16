@@ -55,7 +55,7 @@ export default class NewStreakPage extends Component {
 const alertStyles = {
   position: 'absolute',
   width: '100%',
-  marginTop: '1rem',
+  marginTop: '0.9rem',
   marginRight: '1rem',
   marginLeft: '1rem',
 }
