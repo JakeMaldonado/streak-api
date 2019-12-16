@@ -23,8 +23,8 @@ export default class NewStreakPage extends Component {
     this.setState({
       alerted: {
         show: true,
-        message,
-        type
+        message: message,
+        type: type
       }
     })
 
@@ -36,7 +36,7 @@ export default class NewStreakPage extends Component {
           type: ''
         }
       })
-    }, 5000)
+    }, 1000)
   }
 
   render() {
@@ -44,10 +44,18 @@ export default class NewStreakPage extends Component {
       <div>
         { !this.props.userId && <Redirect to="/login" /> }
         <Navigation />
-        { this.state.alerted &&  <Alert message={this.state.message} type={this.state.type} /> }
-        <NewStreak userId={this.props.userId} addStreaks={this.addStreaks} />
+        { this.state.alerted.show && <Alert style={alertStyles} message={this.state.alerted.message} type={this.state.alerted.type} showIcon/> }
+        <NewStreak userId={this.props.userId} addStreaks={this.addStreaks} showAlert={this.showAlert} />
         <Streaks userId={this.props.userId} addStreaks={this.addStreaks} streaks={this.state.streaks} />
       </div>
     )
   }
+}
+
+const alertStyles = {
+  position: 'absolute',
+  width: '100%',
+  marginTop: '1rem',
+  marginRight: '1rem',
+  marginLeft: '1rem',
 }

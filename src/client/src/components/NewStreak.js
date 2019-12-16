@@ -20,6 +20,8 @@ export default class NewStreak extends Component {
       countBy: this.state.value === 1 ? 'day' : 'week',
     }])
 
+    this.props.showAlert('Streak saved!', 'success')
+
     e.target.reset()
 
     return await this.postSubmit({
@@ -82,7 +84,7 @@ const newStreakStylesContainer = {
   width: '100%',
   display: 'flex',
   justifyContent: 'center',
-  paddingTop: '3rem',
+  paddingTop: '4rem',
 }
 
 const newStreakStyles = {
