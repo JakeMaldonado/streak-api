@@ -5,7 +5,7 @@ export default class Streaks extends Component {
   async componentDidMount() {
     let streaks = await this.getStreaks()
 
-    return this.propes.addStreaks(streaks)
+    return this.props.addStreaks(streaks)
   }
 
   getStreaks = async () => {

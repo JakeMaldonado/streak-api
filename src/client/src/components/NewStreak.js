@@ -12,6 +12,16 @@ export default class NewStreak extends Component {
     e.preventDefault();
     console.log('form submitted')
 
+    this.props.addStreaks([{
+      userId: this.props.userId,
+      title: e.target.title.value,
+      description: e.target.description.value,
+      startDate: e.target.startDate.value,
+      countBy: this.state.value === 1 ? 'day' : 'week',
+    }])
+
+    e.target.reset()
+
     return await this.postSubmit({
       userId: this.props.userId,
       title: e.target.title.value,

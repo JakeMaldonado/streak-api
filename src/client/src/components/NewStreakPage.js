@@ -10,7 +10,7 @@ export default class NewStreakPage extends Component {
     streaks: []
   }
 
-  addStreaks = (newStreaks) => this.setState({ streaks: streaks.concat(newStreaks) })
+  addStreaks = (newStreaks) => this.setState({ streaks: this.state.streaks.concat(newStreaks) })
 
   render() {
     return (
@@ -18,7 +18,7 @@ export default class NewStreakPage extends Component {
         { !this.props.userId && <Redirect to="/login" /> }
         <Navigation />
         <NewStreak userId={this.props.userId} addStreaks={this.addStreaks} />
-        <Streaks userId={this.props.userId} streaks={this.state.streaks} />
+        <Streaks userId={this.props.userId} addStreaks={this.addStreaks} streaks={this.state.streaks} />
       </div>
     )
   }
