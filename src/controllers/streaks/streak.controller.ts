@@ -12,7 +12,8 @@ class StreaksController {
   public intializeRoutes() {
     this.router.get(this.path, this.getAllStreaks);
     this.router.post(this.path, this.createStreak);
-    this.router.delete(this.path, this.createStreak);
+    this.router.delete(this.path, this.deleteStreak);
+    this.router.patch(this.path, this.updateStreak);
   }
  
   getAllStreaks = async (request: express.Request, response: express.Response) => {
@@ -57,9 +58,35 @@ class StreaksController {
     }
   }
 
-  async deleteStreak(request: express.Request, response: express.Response, next: express.NextFunction) {}
+  async deleteStreak(request: express.Request, response: express.Response, next: express.NextFunction) {
+    const userId = request.params.id;
+    const streakId: string = request.body.streakId;
 
-  async updateStreak(request: express.Request, response: express.Response, next: express.NextFunction) {}
+    console.log('Deleting streak');
+    console.log(streakId);
+
+    try {
+      return await StreakModel.deleteOne({ userId, streakId });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  async updateStreak(request: express.Request, response: express.Response, next: express.NextFunction) {
+    const userId = request.params.id;
+    const streakId: string = request.body.streakId;
+    const updates: object = request.body.updates;
+
+    console.log('Updating streak');
+    console.log(streakId);
+
+    try {
+      const userStreak = await StreakModel.findOne({ userId, streakId }); 
+      userStreak.overwrite(updates);
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
  
 export default StreaksController;
