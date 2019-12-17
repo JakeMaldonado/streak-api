@@ -1,6 +1,6 @@
-import { Modal, Button } from 'antd'
+import { Modal } from 'antd'
 
-class App extends React.Component {
+export default class DeleteStreakModal extends React.Component {
   handleOk = () => {
     this.props.deleteConfirmed()
   };
@@ -12,7 +12,7 @@ class App extends React.Component {
   render() {
     return (
         <Modal
-          title="Basic Modal"
+          title="Delete this streak?"
           visible={this.props.showModal}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -23,5 +23,3 @@ class App extends React.Component {
     );
   }
 }
-
-ReactDOM.render(<App />, mountNode);
