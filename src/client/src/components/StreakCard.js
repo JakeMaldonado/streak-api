@@ -17,6 +17,42 @@ export default class StreakCard extends Component {
     return this.props.countBy === 'day' ? 'Days in a row' : 'Weeks in a row'
   }
 
+  deleteStreak = async () => {
+    const rawResponse = await fetch(`http://localhost:3000/streaks/${this.props.userId}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        streakId: this.props.streakId
+      })
+    });
+    console.log(rawResponse)
+
+    // show alert here for success deleting streak
+  }
+
+  editStreak = () => {
+    // show modal then send form data with updateStreak
+  }
+
+  updateStreak = async () => {
+    const data = {}
+
+    const rawResponse = await fetch(`http://localhost:3000/streaks/${this.props.userId}`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    console.log(rawResponse)
+
+    // show alert here for success editing the streak
+  }
+
   render() {
     return (
       <Card title={ this.props.title } style={{ width: 300, marginBottom: '50px' }}>
@@ -26,10 +62,10 @@ export default class StreakCard extends Component {
         <br/>
         <Text>Streak started on { moment(this.props.startDate).format('DD-MM-YYYY') }</Text>
         <br/>
-        <Button style={buttonStyles} type="primary" block>
+        <Button style={buttonStyles} onClick={ this.editStreak } type="primary" block>
           Edit Streak
         </Button>
-        <Button style={buttonStyles} type="danger" block>
+        <Button style={buttonStyles} onClick={ this.deleteStreak } type="danger" block>
           Delete Streak
         </Button>
       </Card>
