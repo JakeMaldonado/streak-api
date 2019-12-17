@@ -69,7 +69,7 @@ export default class StreakCard extends Component {
   render() {
     return (
       <Card title={ this.props.title } style={{ width: 300, marginBottom: '50px' }}>
-        <DeleteStreakModal deleteConfirmed={this.deleteConfirmed} toggleModal={this.toggleModal} />
+        <DeleteStreakModal showModal={this.state.showModal} deleteConfirmed={this.deleteConfirmed} toggleModal={this.toggleModal} />
         <Statistic title={ this.statsTitle() } value={ this.streakTime() } />
         <Text>{ this.props.description }</Text>
         <br/>
