@@ -12,6 +12,7 @@ class StreaksController {
   public intializeRoutes() {
     this.router.get(this.path, this.getAllStreaks);
     this.router.post(this.path, this.createStreak);
+    this.router.delete(this.path, this.createStreak);
   }
  
   getAllStreaks = async (request: express.Request, response: express.Response) => {
@@ -55,6 +56,10 @@ class StreaksController {
       return next(error);
     }
   }
+
+  async deleteStreak(request: express.Request, response: express.Response, next: express.NextFunction) {}
+
+  async updateStreak(request: express.Request, response: express.Response, next: express.NextFunction) {}
 }
  
 export default StreaksController;
