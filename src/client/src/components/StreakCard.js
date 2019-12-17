@@ -2,9 +2,15 @@ import React, { Component } from 'react'
 import { Card, Statistic, Typography, Button } from 'antd'
 import moment from 'moment'
 
+import DeleteStreakModal from './DeleteStreakModal'
+
 const { Text } = Typography;
 
 export default class StreakCard extends Component {
+  state = {
+    showModal: false
+  }
+
   streakTime = () => {
     const now = moment(new Date())
     const duration = moment.duration(now.diff(this.props.startDate))
@@ -17,7 +23,14 @@ export default class StreakCard extends Component {
     return this.props.countBy === 'day' ? 'Days in a row' : 'Weeks in a row'
   }
 
-  deleteStreak = async () => {
+  toggleModal = () => {
+    this.setState({
+      showModal: !this.state.showModal
+    })
+  }
+
+  deleteConfirmed = async () => {
+    // make this the on click for the confirm delete modal
     const rawResponse = await fetch(`http://localhost:3000/streaks/${this.props.userId}`, {
       method: 'DELETE',
       headers: {
@@ -28,8 +41,8 @@ export default class StreakCard extends Component {
         streakId: this.props.streakId
       })
     });
-    console.log(rawResponse)
 
+    this.toggleModal()
     // show alert here for success deleting streak
   }
 
@@ -56,6 +69,7 @@ export default class StreakCard extends Component {
   render() {
     return (
       <Card title={ this.props.title } style={{ width: 300, marginBottom: '50px' }}>
+        <DeleteStreakModal deleteConfirmed={this.deleteConfirmed} toggleModal={this.toggleModal} />
         <Statistic title={ this.statsTitle() } value={ this.streakTime() } />
         <Text>{ this.props.description }</Text>
         <br/>
@@ -65,7 +79,7 @@ export default class StreakCard extends Component {
         <Button style={buttonStyles} onClick={ this.editStreak } type="primary" block>
           Edit Streak
         </Button>
-        <Button style={buttonStyles} onClick={ this.deleteStreak } type="danger" block>
+        <Button style={buttonStyles} onClick={ this.toggleModal } type="danger" block>
           Delete Streak
         </Button>
       </Card>
