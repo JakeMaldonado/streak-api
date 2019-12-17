@@ -42,7 +42,6 @@ export default class StreakCard extends Component {
       })
     });
 
-    this.toggleModal()
     // show alert here for success deleting streak
   }
 

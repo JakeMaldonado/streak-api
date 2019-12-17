@@ -4,6 +4,7 @@ import { Modal } from 'antd'
 export default class DeleteStreakModal extends React.Component {
   handleOk = () => {
     this.props.deleteConfirmed()
+    this.props.toggleModal()
   };
 
   handleCancel = () => {

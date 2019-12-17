@@ -33,6 +33,8 @@ class StreaksController {
   async createStreak(request: express.Request, response: express.Response, next: express.NextFunction) {
     console.log('Creating streak');
     console.log(request.body);
+
+    // IMPORTANT: Fix all streaks getting this ID, wtf
     const { userId, title, description, startDate, countBy } = request.body;
     const streak = new StreakModel({
       userId,
@@ -66,7 +68,7 @@ class StreaksController {
     console.log(streakId);
 
     try {
-      return await StreakModel.deleteOne({ userId, streakId });
+      return await StreakModel.deleteOne({ streakId, userId });
     } catch (error) {
       return next(error);
     }
