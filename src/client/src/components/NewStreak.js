@@ -20,17 +20,22 @@ export default class NewStreak extends Component {
       countBy: this.state.value === 1 ? 'day' : 'week',
     }])
 
-    this.props.showAlert('Streak saved!', 'success')
 
     e.target.reset()
 
-    return await this.postSubmit({
-      userId: this.props.userId,
-      title: e.target.title.value,
-      description: e.target.description.value,
-      startDate: e.target.startDate.value,
-      countBy: this.state.value === 1 ? 'day' : 'week',
-    })
+    try {
+      await this.postSubmit({
+        userId: this.props.userId,
+        title: e.target.title.value,
+        description: e.target.description.value,
+        startDate: e.target.startDate.value,
+        countBy: this.state.value === 1 ? 'day' : 'week',
+      })
+      this.props.showAlert('Streak saved!', 'success')
+    } catch (error) {
+      this.props.showAlert('Couldnt save streak!', 'error')
+    }
+
   }
 
   postSubmit = async data => {

@@ -20,7 +20,11 @@ export default class NewStreakPage extends Component {
   addStreaks = (newStreaks) => this.setState({ streaks: this.state.streaks.concat(newStreaks) })
 
   removeStreakById = (streakId) => this.setState({
-    streaks: this.state.Streaks.filter(streak => streak.streakId !== streakId)
+    streaks: this.state.streaks.filter(streak => {
+      console.log(streak.streakId)
+      console.log(streakId)
+      return streak.streakId !== streakId
+    })
   })
 
   showAlert = (message, type) => {
