@@ -3,12 +3,14 @@ import { Card, Statistic, Typography, Button } from 'antd'
 import moment from 'moment'
 
 import DeleteStreakModal from './DeleteStreakModal'
+import EditStreakModal from './EditStreakModal'
 
 const { Text } = Typography;
 
 export default class StreakCard extends Component {
   state = {
-    showModal: false
+    showDeleteModal: false,
+    showEditModal: false
   }
 
   streakTime = () => {
@@ -23,14 +25,19 @@ export default class StreakCard extends Component {
     return this.props.countBy === 'day' ? 'Days in a row' : 'Weeks in a row'
   }
 
-  toggleModal = () => {
+  toggleDeleteModal = () => {
     this.setState({
-      showModal: !this.state.showModal
+      showDeleteModal: !this.state.showDeleteModal
+    })
+  }
+
+  toggleEditModal = () => {
+    this.setState({
+      showEditModal: !this.state.showEditModal
     })
   }
 
   deleteConfirmed = async () => {
-    // make this the on click for the confirm delete modal
     const rawResponse = await fetch(`http://localhost:3000/streaks/${this.props.userId}`, {
       method: 'DELETE',
       headers: {
@@ -40,18 +47,13 @@ export default class StreakCard extends Component {
       body: JSON.stringify({
         streakId: this.props.streakId
       })
-    });
+    })
+    console.log(rawResponse)
 
     // show alert here for success deleting streak
   }
 
-  editStreak = () => {
-    // show modal then send form data with updateStreak
-  }
-
-  updateStreak = async () => {
-    const data = {}
-
+  updateStreak = async (data) => {
     const rawResponse = await fetch(`http://localhost:3000/streaks/${this.props.userId}`, {
       method: 'PUT',
       headers: {
@@ -59,7 +61,7 @@ export default class StreakCard extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-    });
+    })
     console.log(rawResponse)
 
     // show alert here for success editing the streak
@@ -68,17 +70,18 @@ export default class StreakCard extends Component {
   render() {
     return (
       <Card title={ this.props.title } style={{ width: 300, marginBottom: '50px' }}>
-        <DeleteStreakModal showModal={this.state.showModal} deleteConfirmed={this.deleteConfirmed} toggleModal={this.toggleModal} />
+        <DeleteStreakModal showDeleteModal={this.state.showDeleteModal} deleteConfirmed={this.deleteConfirmed} toggleDeleteModal={this.toggleDeleteModal} />
+        <EditStreakModal showEditModal={this.state.showEditModal} updateStreak={this.updateStreak} toggleEditModal={this.toggleEditModal} />
         <Statistic title={ this.statsTitle() } value={ this.streakTime() } />
         <Text>{ this.props.description }</Text>
         <br/>
         <br/>
         <Text>Streak started on { moment(this.props.startDate).format('DD-MM-YYYY') }</Text>
         <br/>
-        <Button style={buttonStyles} onClick={ this.editStreak } type="primary" block>
+        <Button style={buttonStyles} onClick={this.toggleEditModal} type="primary" block>
           Edit Streak
         </Button>
-        <Button style={buttonStyles} onClick={ this.toggleModal } type="danger" block>
+        <Button style={buttonStyles} onClick={this.toggleDeleteModal} type="danger" block>
           Delete Streak
         </Button>
       </Card>

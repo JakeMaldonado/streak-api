@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import { DatePicker, Radio, Typography, Input, Button } from 'antd';
+import { DatePicker, Radio, Typography, Input, Button } from 'antd'
 
-const { Title, Text } = Typography;
+const { Title, Text } = Typography
 
 export default class NewStreak extends Component {
   state = {
     value: 1,
-  };
+  }
 
   handleSubmit = async e => {
-    e.preventDefault();
+    e.preventDefault()
     console.log('form submitted')
 
     this.props.addStreaks([{
@@ -31,7 +31,7 @@ export default class NewStreak extends Component {
       startDate: e.target.startDate.value,
       countBy: this.state.value === 1 ? 'day' : 'week',
     })
-  };
+  }
 
   postSubmit = async data => {
     const rawResponse = await fetch(`http://localhost:3000/streaks/${this.props.userId}`, {
@@ -41,7 +41,7 @@ export default class NewStreak extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-    });
+    })
     console.log(rawResponse)
   }
 

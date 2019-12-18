@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icon, Input, Button, Typography } from 'antd'
 
-const { Title } = Typography;
+const { Title } = Typography
 
 export default class NormalLoginForm extends React.Component {
   handleSubmit = e => {

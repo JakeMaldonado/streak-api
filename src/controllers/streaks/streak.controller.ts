@@ -1,5 +1,6 @@
 import * as express from 'express';
 import StreakModel from '../../models/streak';
+import { v4 as uuid } from 'uuid';
 
 class StreaksController {
   public path = '/streaks/:id';
@@ -42,19 +43,12 @@ class StreaksController {
       description,
       startDate,
       countBy,
-      streakId: '1',
+      streakId: uuid(),
     });
 
     try {
-      await streak.save();
-      return response.send({
-        userId,
-        title,
-        description,
-        startDate,
-        countBy,
-        streakId: '1',
-      });
+      const newStreak = await streak.save();
+      return response.send(newStreak);
     } catch (error) {
       return next(error);
     }

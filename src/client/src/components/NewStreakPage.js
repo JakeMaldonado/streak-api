@@ -19,6 +19,10 @@ export default class NewStreakPage extends Component {
 
   addStreaks = (newStreaks) => this.setState({ streaks: this.state.streaks.concat(newStreaks) })
 
+  removeStreakById = (streakId) => this.setState({
+    streaks: this.state.Streaks.filter(streak => streak.streakId !== streakId)
+  })
+
   showAlert = (message, type) => {
     this.setState({
       alerted: {
@@ -46,7 +50,7 @@ export default class NewStreakPage extends Component {
         <Navigation />
         { this.state.alerted.show && <Alert style={alertStyles} message={this.state.alerted.message} type={this.state.alerted.type} showIcon/> }
         <NewStreak userId={this.props.userId} addStreaks={this.addStreaks} showAlert={this.showAlert} />
-        <Streaks userId={this.props.userId} addStreaks={this.addStreaks} streaks={this.state.streaks} />
+        <Streaks userId={this.props.userId} addStreaks={this.addStreaks} streaks={this.state.streaks} removeStreakById={this.removeStreakById} />
       </div>
     )
   }

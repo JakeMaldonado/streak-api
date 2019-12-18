@@ -4,18 +4,18 @@ import { Modal } from 'antd'
 export default class DeleteStreakModal extends React.Component {
   handleOk = () => {
     this.props.deleteConfirmed()
-    this.props.toggleModal()
+    this.props.toggleDeleteModal()
   };
 
   handleCancel = () => {
-    this.props.toggleModal()
+    this.props.toggleDeleteModal()
   };
 
   render() {
     return (
         <Modal
           title="Delete this streak?"
-          visible={this.props.showModal}
+          visible={this.props.showDeleteModal}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >

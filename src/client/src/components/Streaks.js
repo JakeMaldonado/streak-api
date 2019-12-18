@@ -22,7 +22,7 @@ export default class Streaks extends Component {
 
   renderSreaks = () => {
     return this.props.streaks.map(streak => {
-      return <StreakCard { ...streak } />
+      return <StreakCard { ...streak } removeStreakById={this.props.removeStreakById} />
     })
   }
 
