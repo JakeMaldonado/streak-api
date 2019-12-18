@@ -10,18 +10,6 @@ export default class NewStreak extends Component {
 
   handleSubmit = async e => {
     e.preventDefault()
-    console.log('form submitted')
-
-    this.props.addStreaks([{
-      userId: this.props.userId,
-      title: e.target.title.value,
-      description: e.target.description.value,
-      startDate: e.target.startDate.value,
-      countBy: this.state.value === 1 ? 'day' : 'week',
-    }])
-
-
-    e.target.reset()
 
     try {
       await this.postSubmit({
@@ -31,11 +19,21 @@ export default class NewStreak extends Component {
         startDate: e.target.startDate.value,
         countBy: this.state.value === 1 ? 'day' : 'week',
       })
+
+      this.props.addStreaks([{
+        userId: this.props.userId,
+        title: e.target.title.value,
+        description: e.target.description.value,
+        startDate: e.target.startDate.value,
+        countBy: this.state.value === 1 ? 'day' : 'week',
+      }])
+
       this.props.showAlert('Streak saved!', 'success')
+
+      e.target.reset()
     } catch (error) {
       this.props.showAlert('Couldnt save streak!', 'error')
     }
-
   }
 
   postSubmit = async data => {
