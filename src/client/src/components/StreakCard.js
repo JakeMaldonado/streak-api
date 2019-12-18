@@ -10,7 +10,7 @@ const { Text } = Typography;
 export default class StreakCard extends Component {
   state = {
     showDeleteModal: false,
-    showEditModal: false
+    showEditModal: false,
   }
 
   streakTime = () => {
@@ -50,6 +50,8 @@ export default class StreakCard extends Component {
     })
     console.log(rawResponse)
 
+    this.props.removeStreakById(this.props.streakId)
+
     // show alert here for success deleting streak
   }
 
@@ -71,7 +73,7 @@ export default class StreakCard extends Component {
     return (
       <Card title={ this.props.title } style={{ width: 300, marginBottom: '50px' }}>
         <DeleteStreakModal showDeleteModal={this.state.showDeleteModal} deleteConfirmed={this.deleteConfirmed} toggleDeleteModal={this.toggleDeleteModal} />
-        <EditStreakModal showEditModal={this.state.showEditModal} updateStreak={this.updateStreak} toggleEditModal={this.toggleEditModal} />
+        <EditStreakModal showEditModal={this.state.showEditModal} updateStreak={this.updateStreak} toggleEditModal={this.toggleEditModal} {...this.props} />
         <Statistic title={ this.statsTitle() } value={ this.streakTime() } />
         <Text>{ this.props.description }</Text>
         <br/>

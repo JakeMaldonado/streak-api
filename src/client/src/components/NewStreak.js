@@ -57,13 +57,13 @@ export default class NewStreak extends Component {
         <form onSubmit={ this.handleSubmit } style={newStreakStyles}>
           <Title level={4}>Add new streak</Title>
           <Text>Streak title:</Text>
-          <Input name='title' placeholder="Streak title"/>
+          <Input name='title' placeholder="Streak title" defaultValue=''/>
           <br />
           <Text>Streak description:</Text>
-          <Input name='description' placeholder="Streak description"/>
+          <Input name='description' placeholder="Streak description" defaultValue=''/>
           <br />
           <Text>Start date:</Text>
-          <DatePicker name='startDate' placeholder="Select start date"/>
+          <DatePicker name='startDate' placeholder="Select start date" defaultValue=''/>
           <br />
           <Text>Count streak by:</Text>
           <Radio.Group onChange={this.onChange} value={this.state.value}>
