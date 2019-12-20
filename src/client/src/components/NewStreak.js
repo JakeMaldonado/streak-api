@@ -28,9 +28,11 @@ export default class NewStreak extends Component {
         countBy: this.state.value === 1 ? 'day' : 'week',
       }])
 
-      this.props.showAlert('Streak saved!', 'success')
+      e.target.title.value = ''
+      e.target.description.value = ''
+      e.target.startDate.value = ''
 
-      e.target.reset()
+      this.props.showAlert('Streak saved!', 'success')
     } catch (error) {
       this.props.showAlert('Couldnt save streak!', 'error')
     }
