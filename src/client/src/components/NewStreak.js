@@ -12,7 +12,7 @@ export default class NewStreak extends Component {
     e.preventDefault()
 
     try {
-      rawResponse = await this.postSubmit({
+      const rawResponse = await this.postSubmit({
         userId: this.props.userId,
         title: e.target.title.value,
         description: e.target.description.value,
