@@ -4,13 +4,16 @@ import { Icon, Input, Button, Typography } from 'antd'
 const { Title } = Typography
 
 export default class NormalLoginForm extends React.Component {
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault()
 
-    this.postSubmit({
+    await this.postSubmit({
       username: e.target.username.value,
       password: e.target.password.value,
     })
+
+    e.target.username.value = ''
+    e.target.password.value = ''
   }
 
   postSubmit = async data => {
