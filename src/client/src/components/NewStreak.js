@@ -12,7 +12,7 @@ export default class NewStreak extends Component {
     e.preventDefault()
 
     try {
-      await this.postSubmit({
+      rewResponse = await this.postSubmit({
         userId: this.props.userId,
         title: e.target.title.value,
         description: e.target.description.value,
@@ -20,13 +20,15 @@ export default class NewStreak extends Component {
         countBy: this.state.value === 1 ? 'day' : 'week',
       })
 
-      this.props.addStreaks([{
-        userId: this.props.userId,
-        title: e.target.title.value,
-        description: e.target.description.value,
-        startDate: e.target.startDate.value,
-        countBy: this.state.value === 1 ? 'day' : 'week',
-      }])
+      this.props.addStreaks([rawResponse])
+
+      // this.props.addStreaks([{
+      //   userId: this.props.userId,
+      //   title: e.target.title.value,
+      //   description: e.target.description.value,
+      //   startDate: e.target.startDate.value,
+      //   countBy: this.state.value === 1 ? 'day' : 'week',
+      // }])
 
       this.props.showAlert('Streak saved!', 'success')
 
@@ -45,7 +47,7 @@ export default class NewStreak extends Component {
       },
       body: JSON.stringify(data)
     })
-    console.log(rawResponse)
+    return rawResponse
   }
 
   onChange = e => {
