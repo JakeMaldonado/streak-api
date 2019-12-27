@@ -53,7 +53,7 @@ export default class NormalLoginForm extends React.Component {
             type="password"
             placeholder="Password"
           />
-          <Link to="/about">
+          <Link to="/signup">
             Don't have an account? Sign up.
           </Link>
           <Button type="primary" htmlType="submit" className="login-form-button">
