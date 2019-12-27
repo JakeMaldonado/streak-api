@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom'
 import NewStreakPage from './components/NewStreakPage'
 import Login from './components/Login'
+import SignUp from './components/SignUp'
 
 import 'antd/dist/antd.css'
 
@@ -24,6 +25,7 @@ class App extends React.Component {
         <Switch >
           <Route path='/' exact render={(routeProps) => <NewStreakPage {...routeProps}  userId={this.state.userId} />} />
           <Route path='/login' exact render={(routeProps) => <Login {...routeProps} updateUserState={this.updateUserState} />} />
+          <Route path='/signup' exact render={(routeProps) => <SignUp {...routeProps} updateUserState={this.updateUserState} />} />
         </Switch>
       </div>
     )
