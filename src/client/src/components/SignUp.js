@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Icon, Input, Button, Typography } from 'antd'
 
 const { Title } = Typography
@@ -52,9 +53,9 @@ export default class NormalLoginForm extends React.Component {
             type="password"
             placeholder="Password"
           />
-          <a href="">
+          <Link to="/login">
             Have an account? Login here.
-          </a>
+          </Link>
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
           </Button>
