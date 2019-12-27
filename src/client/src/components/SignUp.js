@@ -40,7 +40,7 @@ export default class NormalLoginForm extends React.Component {
     return (
       <div style={loginFormContainer}>
         <form style={loginFormStyles} onSubmit={this.handleSubmit}>
-          <Title level={4}>Login</Title>
+          <Title level={4}>Create Account</Title>
           <Input
             name="username"
             prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}

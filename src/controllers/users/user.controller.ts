@@ -37,7 +37,7 @@ class UsersController {
       });
     }
 
-    console.log('error getting user')
+    console.log('error getting user');
     return response.status(404).send('error');
   }
  
@@ -56,7 +56,10 @@ class UsersController {
 
     try {
       await user.save();
-      return response.send('success!');
+      return response.json({
+        username: user.username,
+        userId: user.userId
+      });
     } catch (error) {
       return next(error);
     }

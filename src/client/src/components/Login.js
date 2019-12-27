@@ -53,7 +53,7 @@ export default class NormalLoginForm extends React.Component {
             placeholder="Password"
           />
           <a className="login-form-forgot" href="">
-            Forgot password
+            Don't have an account? Sign up.
           </a>
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
