@@ -73,14 +73,18 @@ class StreaksController {
     const streakId: string = request.body.streakId;
     const updates: object = request.body.updates;
 
-    console.log(request.body)
-
     console.log('Updating streak');
     console.log(streakId);
 
     try {
       const userStreak = await StreakModel.findOne({ userId, streakId }); 
-      userStreak.overwrite(updates);
+      await userStreak.overwrite({
+        streakId,
+        userId,
+        ...updates
+      });
+      await userStreak.save();
+      return response.json(userStreak)
     } catch (error) {
       return next(error);
     }

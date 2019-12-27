@@ -11,19 +11,26 @@ export default class EditStreakModal extends React.Component {
     value: 1 + this.props.countBy === 'day'
   }
 
+  modalForm = React.createRef();
+
   onChange = e => {
     this.setState({
       value: e.target.value,
     });
   };
 
-  handleOk = (e) => {
+  handleOk = () => {
+    const form = this.modalForm.current
+
+    console.log(form)
+    console.log(this.props)
+
     const data = {
       streakId: this.props.streakId,
       updates: {
-        title: e.target.title.value,
-        description: e.target.description.value,
-        startDate: e.target.startDate.value,
+        title: form.title.value,
+        description: form.description.value,
+        startDate: form.startDate.value,
         countBy: this.state.value === 1 ? 'day' : 'week'
       }
     }
@@ -44,7 +51,7 @@ export default class EditStreakModal extends React.Component {
         onOk={this.handleOk}
         onCancel={this.handleCancel}
       >
-        <form onSubmit={ this.handleSubmit } style={editStreakStyles}>
+        <form onSubmit={ this.handleOk } style={editStreakStyles} ref={this.modalForm}>
           <Title level={4}>Edit streak</Title>
           <Text>Streak title:</Text>
           <Input name='title' placeholder="Streak title" defaultValue={this.props.title}/>
