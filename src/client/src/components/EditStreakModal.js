@@ -17,8 +17,18 @@ export default class EditStreakModal extends React.Component {
     });
   };
 
-  handleOk = () => {
-    this.props.editConfirmed()
+  handleOk = (e) => {
+    const data = {
+      streakId: this.props.streakId,
+      updates: {
+        title: e.target.title.value,
+        description: e.target.description.value,
+        startDate: e.target.startDate.value,
+        countBy: this.state.value === 1 ? 'day' : 'week'
+      }
+    }
+
+    this.props.updateStreak(data)
     this.props.toggleEditModal()
   };
 

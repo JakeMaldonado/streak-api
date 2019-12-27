@@ -73,6 +73,8 @@ class StreaksController {
     const streakId: string = request.body.streakId;
     const updates: object = request.body.updates;
 
+    console.log(request.body)
+
     console.log('Updating streak');
     console.log(streakId);
 

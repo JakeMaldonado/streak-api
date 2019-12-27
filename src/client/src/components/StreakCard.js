@@ -57,7 +57,7 @@ export default class StreakCard extends Component {
 
   updateStreak = async (data) => {
     const rawResponse = await fetch(`http://localhost:3000/streaks/${this.props.userId}`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
