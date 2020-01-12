@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/app.js",
+  "engines": {
+    "node": "12.13.0",
+    "npm": "6.12.1",
+    "yarn": "1.5.1"
+  },
   "scripts": {
     "start": "cd src/client && npm run-script build && cd ../.. && ts-node ./src/server.ts",
     "dev": "cd src/client && npm run-script build && cd ../.. && ts-node ./src/server.ts",
