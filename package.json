@@ -9,7 +9,7 @@
     "yarn": "1.5.1"
   },
   "scripts": {
-    "start": "node ./src/server.ts",
+    "start": "cd src/client && npm run-script build && cd ../.. && ts-node ./src/server.ts",
     "dev": "cd src/client && npm run-script build && cd ../.. && ts-node ./src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "cd src/client && npm install --only=dev && npm install && npm run build"
